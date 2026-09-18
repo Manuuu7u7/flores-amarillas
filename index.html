@@ -60,20 +60,116 @@
   }
   @keyframes fadeInOut { 0%,100%{opacity:.6;} 50%{opacity:1;} }
 
-  /* ===== ESCENA DE CRECIMIENTO ===== */
+  /* ===== ESCENA DE CRECIMIENTO CON FONDO DE CAMPO ===== */
   .growth-scene {
     position:fixed; top:0; left:0; width:100%; height:100%;
-    background: radial-gradient(circle at 50% 100%, #fff9c4 0%, #ffe082 60%, #ffb300 100%);
+    background: linear-gradient(to bottom, 
+      #87ceeb 0%, 
+      #b3e5fc 25%, 
+      #ffe082 55%, 
+      #ffcc80 75%, 
+      #a1887f 100%);
     z-index:900; display:none; align-items:flex-end; justify-content:center; overflow:hidden;
   }
   .growth-scene.show { display:flex; }
   .growth-scene.hidden { opacity:0; pointer-events:none; transition: opacity 1s ease; }
 
-  .ground { position:absolute; bottom:0; left:0; width:100%; height:15%; background: linear-gradient(to top, #8d6e63, #a1887f, transparent); border-radius: 50% 50% 0 0 / 20% 20% 0 0; }
+  /* Sol */
+  .growth-scene::before {
+    content: '';
+    position: absolute;
+    top: 8%; right: 15%;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, #fff9c4 0%, #ffeb3b 40%, #ffc107 70%, transparent 100%);
+    border-radius: 50%;
+    box-shadow: 
+      0 0 40px 20px rgba(255,235,59,.5),
+      0 0 80px 40px rgba(255,193,7,.3);
+    animation: sunGlow 3s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes sunGlow {
+    0%,100% { transform: scale(1); opacity: .9; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  /* Nube */
+  .growth-scene::after {
+    content: '';
+    position: absolute;
+    top: 15%; left: 10%;
+    width: 120px; height: 40px;
+    background: 
+      radial-gradient(ellipse 60px 30px at 30% 60%, rgba(255,255,255,.85) 0%, transparent 70%),
+      radial-gradient(ellipse 80px 40px at 70% 40%, rgba(255,255,255,.9) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: cloudDrift 25s linear infinite;
+    z-index: 0;
+  }
+  @keyframes cloudDrift {
+    0% { transform: translateX(-20px); }
+    50% { transform: translateX(40px); }
+    100% { transform: translateX(-20px); }
+  }
+
+  /* Colinas */
+  .hills {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    width: 100%;
+    height: 25%;
+    z-index: 1;
+  }
+  .hills::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: -10%;
+    width: 60%; height: 100%;
+    background: radial-gradient(ellipse 100% 100% at 50% 100%, #a5d6a7 0%, #81c784 60%, #66bb6a 100%);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+  .hills::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: -10%;
+    width: 70%; height: 110%;
+    background: radial-gradient(ellipse 100% 100% at 50% 100%, #c8e6c9 0%, #a5d6a7 60%, #81c784 100%);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+
+  /* Suelo de tierra con pastito */
+  .ground { 
+    position:absolute; bottom:0; left:0; width:100%; height:22%; 
+    background: linear-gradient(to bottom, 
+      #6d4c41 0%, 
+      #5d4037 40%, 
+      #4e342e 100%);
+    z-index: 2;
+  }
+  .ground::before {
+    content: '';
+    position: absolute;
+    top: -10px; left: 0;
+    width: 100%; height: 22px;
+    background: 
+      radial-gradient(ellipse 8px 14px at 5% 100%, #4caf50 0%, transparent 70%),
+      radial-gradient(ellipse 10px 16px at 12% 100%, #66bb6a 0%, transparent 70%),
+      radial-gradient(ellipse 8px 14px at 20% 100%, #43a047 0%, transparent 70%),
+      radial-gradient(ellipse 10px 18px at 28% 100%, #66bb6a 0%, transparent 70%),
+      radial-gradient(ellipse 8px 14px at 36% 100%, #4caf50 0%, transparent 70%),
+      radial-gradient(ellipse 12px 16px at 45% 100%, #43a047 0%, transparent 70%),
+      radial-gradient(ellipse 9px 15px at 54% 100%, #66bb6a 0%, transparent 70%),
+      radial-gradient(ellipse 10px 17px at 63% 100%, #4caf50 0%, transparent 70%),
+      radial-gradient(ellipse 8px 14px at 72% 100%, #43a047 0%, transparent 70%),
+      radial-gradient(ellipse 11px 16px at 80% 100%, #66bb6a 0%, transparent 70%),
+      radial-gradient(ellipse 9px 15px at 88% 100%, #4caf50 0%, transparent 70%),
+      radial-gradient(ellipse 10px 17px at 96% 100%, #43a047 0%, transparent 70%);
+  }
 
   /* ===== SEMILLA REALISTA QUE SE ENTIERRA ===== */
   .seed {
-    position:absolute; bottom:12%; width:24px; height:36px;
+    position:absolute; bottom:22%; width:24px; height:36px;
     background: 
       radial-gradient(ellipse at 35% 25%, #a1887f 0%, #8d6e63 20%, #5d4037 50%, #3e2723 80%, #1b0e07 100%);
     border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
@@ -81,7 +177,7 @@
       0 4px 12px rgba(0,0,0,.4),
       inset -4px -4px 8px rgba(0,0,0,.4),
       inset 3px 3px 6px rgba(255,255,255,.15);
-    z-index:5;
+    z-index:6;
     transform-origin: center bottom;
     overflow: hidden;
     animation: seedFallsAndBuries 3s ease-out forwards;
@@ -109,8 +205,6 @@
     border-radius: 50%;
     filter: blur(2px);
   }
-
-  /* Animación: cae, toca el suelo y se hunde */
   @keyframes seedFallsAndBuries {
     0%   { transform: translateY(-100vh) rotate(0deg) scale(1); opacity: 0; }
     10%  { opacity: 1; }
@@ -122,7 +216,7 @@
 
   /* ===== MONTÍCULO DE TIERRA ===== */
   .dirt-mound {
-    position:absolute; bottom:11.5%; left:50%;
+    position:absolute; bottom:21.5%; left:50%;
     width: 60px; height: 20px;
     transform: translateX(-50%) scale(0);
     background: 
@@ -130,7 +224,7 @@
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     box-shadow: 0 -2px 6px rgba(0,0,0,.3);
     opacity: 0;
-    z-index: 4;
+    z-index: 5;
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   .dirt-mound.show {
@@ -138,16 +232,16 @@
     opacity: 1;
   }
 
-  /* ===== BROTE VERDE QUE SALE DEL MONTÍCULO ===== */
+  /* ===== BROTE VERDE ===== */
   .sprout {
-    position:absolute; bottom:13%; left:50%;
+    position:absolute; bottom:23%; left:50%;
     width: 4px; height: 0;
     transform: translateX(-50%);
     background: linear-gradient(to top, #2e7d32, #66bb6a, #a5d6a7);
     border-radius: 2px;
     box-shadow: 0 0 6px rgba(102,187,106,.5);
     opacity: 0;
-    z-index: 5;
+    z-index: 6;
     transition: height 1.2s ease-out, opacity 0.4s;
   }
   .sprout.show {
@@ -188,15 +282,15 @@
 
   /* ===== TALLO ===== */
   .stem {
-    position:absolute; bottom:12%; width:8px;
+    position:absolute; bottom:22%; width:8px;
     background: linear-gradient(to right, #1b5e20, #4caf50, #66bb6a, #2e7d32);
     border-radius:4px; height:0; transform-origin: bottom;
     transition: height 2s ease-out; 
     box-shadow: 2px 0 8px rgba(0,0,0,.2); 
-    z-index:3;
+    z-index:4;
   }
 
-  /* ===== HOJAS REALISTAS ===== */
+  /* ===== HOJAS ===== */
   .leaf {
     position:absolute; width:55px; height:32px;
     background: radial-gradient(ellipse at 30% 30%, #a5d6a7 0%, #66bb6a 30%, #4caf50 60%, #2e7d32 100%);
@@ -205,7 +299,7 @@
       inset 2px 2px 4px rgba(255,255,255,.3),
       0 3px 6px rgba(0,0,0,.2);
     opacity:0; transform-origin: 0% 50%; 
-    transition: all 1s ease-out; z-index:4;
+    transition: all 1s ease-out; z-index:5;
     overflow: hidden;
   }
   .leaf::after {
@@ -224,9 +318,9 @@
   }
   .leaf.right { transform: rotate(-25deg); }
 
-  /* ===== CAPULLO REALISTA ===== */
+  /* ===== CAPULLO ===== */
   .bud {
-    position:absolute; bottom:12%; width:44px; height:68px;
+    position:absolute; bottom:22%; width:44px; height:68px;
     background: 
       radial-gradient(ellipse at 40% 30%, #c8e6c9 0%, #a5d6a7 20%, #66bb6a 50%, #2e7d32 80%, #1b5e20 100%);
     border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
@@ -234,7 +328,7 @@
       inset -4px -4px 10px rgba(0,0,0,.3),
       inset 3px 3px 8px rgba(255,255,255,.25),
       0 4px 10px rgba(0,0,0,.2);
-    opacity:0; transition: all 1s ease-out; z-index:5;
+    opacity:0; transition: all 1s ease-out; z-index:6;
     overflow: hidden;
   }
   .bud::before {
@@ -252,12 +346,12 @@
     transform: translateX(-50%) scale(0);
     opacity:0;
     transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index:6; 
+    z-index:7; 
     filter: drop-shadow(0 0 25px rgba(255,193,7,.7));
   }
   .flower-big.bloom { transform: translateX(-50%) scale(1); opacity:1; }
 
-  /* ===== ANIMACIÓN DE LA FLOR: BALANCEO REALISTA ===== */
+  /* ===== ANIMACIÓN DE LA FLOR ===== */
   .flower-svg { 
     width:300px; height:300px; 
     transform-origin: center 95%;
@@ -310,29 +404,7 @@
     50% { transform: scale(1.03); }
   }
 
-  /* ===== PASTO QUE SE MECE ===== */
-  .grass-sway path {
-    transform-origin: center bottom;
-    animation: grassSway 5s ease-in-out infinite;
-  }
-  .grass-sway path:nth-child(2n) {
-    animation-duration: 6s;
-    animation-delay: -1.5s;
-  }
-  .grass-sway path:nth-child(3n) {
-    animation-duration: 4.5s;
-    animation-delay: -0.8s;
-  }
-  .grass-sway path:nth-child(5n) {
-    animation-duration: 7s;
-    animation-delay: -2.3s;
-  }
-  @keyframes grassSway {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
-  }
-
-  /* ===== ANIMACIÓN DE APERTURA DE PÉTALOS ===== */
+  /* ===== APERTURA DE PÉTALOS ===== */
   .flower-big .petal-layer {
     opacity: 0;
     transform: scale(0);
@@ -475,6 +547,7 @@
 
 <!-- Escena de crecimiento -->
 <div class="growth-scene" id="growthScene">
+  <div class="hills"></div>
   <div class="ground"></div>
   <div class="seed" id="seed"></div>
   <div class="dirt-mound" id="dirtMound"></div>
@@ -526,18 +599,6 @@
         </filter>
       </defs>
       
-      <!-- Pasto de fondo que se mece -->
-      <g class="grass-sway" opacity="0.75">
-        <path d="M 90 300 Q 85 270 92 235" stroke="#4caf50" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <path d="M 110 300 Q 114 275 108 245" stroke="#66bb6a" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path d="M 195 300 Q 202 275 198 240" stroke="#4caf50" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <path d="M 215 300 Q 220 280 215 250" stroke="#66bb6a" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path d="M 75 300 Q 70 285 78 260" stroke="#388e3c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M 230 300 Q 235 285 228 260" stroke="#388e3c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M 125 300 Q 128 285 122 265" stroke="#81c784" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M 178 300 Q 175 285 182 262" stroke="#81c784" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      </g>
-      
       <!-- Tallo -->
       <path d="M 150 300 Q 148 250 150 200" stroke="url(#stemGrad)" stroke-width="9" fill="none" stroke-linecap="round"/>
       
@@ -555,7 +616,7 @@
         <path d="M 162 230 Q 175 220 190 205" stroke="#1b5e20" stroke-width="0.6" fill="none" opacity="0.4"/>
       </g>
       
-      <!-- CAPA 1: Pétalos exteriores -->
+      <!-- Pétalos exteriores -->
       <g class="petal-layer" filter="url(#softShadow)">
         <g transform="translate(150,140)">
           <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(0)"/>
@@ -577,7 +638,7 @@
         </g>
       </g>
       
-      <!-- CAPA 2: Pétalos interiores -->
+      <!-- Pétalos interiores -->
       <g class="petal-layer" filter="url(#softShadow)">
         <g transform="translate(150,140)">
           <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(11.25)"/>
@@ -599,37 +660,19 @@
         </g>
       </g>
       
-      <!-- Centro del girasol -->
+      <!-- Centro -->
       <g transform="translate(150,140)" filter="url(#softShadow)">
         <circle cx="0" cy="0" r="45" fill="url(#centerGrad)"/>
         <g fill="#1b0e07" opacity="0.9">
-          <circle cx="-28" cy="-16" r="2.5"/>
-          <circle cx="-20" cy="-27" r="2.5"/>
-          <circle cx="-9" cy="-32" r="2.5"/>
-          <circle cx="5" cy="-34" r="2.5"/>
-          <circle cx="19" cy="-30" r="2.5"/>
-          <circle cx="30" cy="-19" r="2.5"/>
-          <circle cx="34" cy="-5" r="2.5"/>
-          <circle cx="32" cy="10" r="2.5"/>
-          <circle cx="24" cy="24" r="2.5"/>
-          <circle cx="11" cy="32" r="2.5"/>
-          <circle cx="-5" cy="34" r="2.5"/>
-          <circle cx="-19" cy="30" r="2.5"/>
-          <circle cx="-30" cy="19" r="2.5"/>
-          <circle cx="-34" cy="5" r="2.5"/>
-          <circle cx="-32" cy="-11" r="2.5"/>
-          <circle cx="-16" cy="-9" r="2"/>
-          <circle cx="-9" cy="-16" r="2"/>
-          <circle cx="0" cy="-19" r="2"/>
-          <circle cx="9" cy="-16" r="2"/>
-          <circle cx="16" cy="-9" r="2"/>
-          <circle cx="19" cy="0" r="2"/>
-          <circle cx="16" cy="9" r="2"/>
-          <circle cx="9" cy="16" r="2"/>
-          <circle cx="0" cy="19" r="2"/>
-          <circle cx="-9" cy="16" r="2"/>
-          <circle cx="-16" cy="9" r="2"/>
-          <circle cx="-19" cy="0" r="2"/>
+          <circle cx="-28" cy="-16" r="2.5"/><circle cx="-20" cy="-27" r="2.5"/><circle cx="-9" cy="-32" r="2.5"/>
+          <circle cx="5" cy="-34" r="2.5"/><circle cx="19" cy="-30" r="2.5"/><circle cx="30" cy="-19" r="2.5"/>
+          <circle cx="34" cy="-5" r="2.5"/><circle cx="32" cy="10" r="2.5"/><circle cx="24" cy="24" r="2.5"/>
+          <circle cx="11" cy="32" r="2.5"/><circle cx="-5" cy="34" r="2.5"/><circle cx="-19" cy="30" r="2.5"/>
+          <circle cx="-30" cy="19" r="2.5"/><circle cx="-34" cy="5" r="2.5"/><circle cx="-32" cy="-11" r="2.5"/>
+          <circle cx="-16" cy="-9" r="2"/><circle cx="-9" cy="-16" r="2"/><circle cx="0" cy="-19" r="2"/>
+          <circle cx="9" cy="-16" r="2"/><circle cx="16" cy="-9" r="2"/><circle cx="19" cy="0" r="2"/>
+          <circle cx="16" cy="9" r="2"/><circle cx="9" cy="16" r="2"/><circle cx="0" cy="19" r="2"/>
+          <circle cx="-9" cy="16" r="2"/><circle cx="-16" cy="9" r="2"/><circle cx="-19" cy="0" r="2"/>
           <circle cx="0" cy="0" r="3.5" fill="#000"/>
           <circle cx="-2" cy="-2" r="1.2" fill="#5d4037" opacity="0.8"/>
         </g>
@@ -724,20 +767,15 @@
     const growthScene = document.getElementById('growthScene');
     growthScene.classList.add('show');
     
-    // Tiempo 0: la semilla cae (animación CSS de 3s)
-    
-    // Tiempo 2s: la semilla ya se enterró → aparece el montículo
     setTimeout(() => {
       document.getElementById('dirtMound').classList.add('show');
       if (navigator.vibrate) navigator.vibrate([30]);
     }, 2000);
     
-    // Tiempo 2.6s: sale el brote verde del montículo
     setTimeout(() => {
       document.getElementById('sprout').classList.add('show');
     }, 2600);
     
-    // Tiempo 3.8s: el brote se convierte en tallo y crece
     setTimeout(() => {
       const sprout = document.getElementById('sprout');
       sprout.style.opacity = '0';
@@ -745,37 +783,32 @@
       document.getElementById('stem').style.height = '45vh';
     }, 3800);
     
-    // Tiempo 5s: aparecen las hojas
     setTimeout(() => {
       const leafLeft = document.getElementById('leafLeft');
       const leafRight = document.getElementById('leafRight');
       leafLeft.style.opacity = '1';
       leafRight.style.opacity = '1';
-      leafLeft.style.bottom = '28vh';
+      leafLeft.style.bottom = '32vh';
       leafLeft.style.left = 'calc(50% - 50px)';
-      leafRight.style.bottom = '38vh';
+      leafRight.style.bottom = '42vh';
       leafRight.style.left = 'calc(50% + 5px)';
     }, 5000);
     
-    // Tiempo 5.8s: aparece el capullo
     setTimeout(() => {
       const bud = document.getElementById('bud');
       bud.style.opacity = '1';
-      bud.style.bottom = 'calc(12% + 45vh)';
+      bud.style.bottom = 'calc(22% + 45vh)';
       bud.style.left = 'calc(50% - 22px)';
     }, 5800);
     
-    // Tiempo 6.6s: el capullo se convierte en flor
     setTimeout(() => {
       document.getElementById('bud').style.opacity = '0';
       document.getElementById('flowerBig').classList.add('bloom');
       if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
     }, 6600);
     
-    // Tiempo 7s: explosión de pétalos
     setTimeout(burstPetals, 7000);
     
-    // Tiempo 8.5s: fin de la escena y mostrar el contenido
     setTimeout(() => {
       growthScene.classList.add('hidden');
       setTimeout(() => {
