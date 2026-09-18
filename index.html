@@ -71,12 +71,42 @@
 
   .ground { position:absolute; bottom:0; left:0; width:100%; height:15%; background: linear-gradient(to top, #8d6e63, #a1887f, transparent); border-radius: 50% 50% 0 0 / 20% 20% 0 0; }
 
+  /* ===== SEMILLA REALISTA ===== */
   .seed {
-    position:absolute; bottom:12%; width:20px; height:26px;
-    background: radial-gradient(circle at 30% 30%, #6d4c41, #3e2723);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    box-shadow: 0 4px 10px rgba(0,0,0,.3);
+    position:absolute; bottom:12%; width:24px; height:36px;
+    background: 
+      radial-gradient(ellipse at 35% 25%, #a1887f 0%, #8d6e63 20%, #5d4037 50%, #3e2723 80%, #1b0e07 100%);
+    border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
+    box-shadow: 
+      0 4px 12px rgba(0,0,0,.4),
+      inset -4px -4px 8px rgba(0,0,0,.4),
+      inset 3px 3px 6px rgba(255,255,255,.15);
     animation: seedDrop 1.5s ease-out; z-index:5;
+    transform-origin: center bottom;
+    overflow: hidden;
+  }
+  .seed::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 4px,
+      rgba(0,0,0,.2) 4px,
+      rgba(0,0,0,.2) 5px
+    );
+    border-radius: inherit;
+  }
+  .seed::after {
+    content: '';
+    position: absolute;
+    top: 15%; left: 20%;
+    width: 25%; height: 30%;
+    background: radial-gradient(ellipse, rgba(255,255,255,.4), transparent 70%);
+    border-radius: 50%;
+    filter: blur(2px);
   }
   @keyframes seedDrop {
     0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
@@ -86,36 +116,98 @@
 
   .stem {
     position:absolute; bottom:12%; width:8px;
-    background: linear-gradient(to top, #2e7d32, #66bb6a);
+    background: linear-gradient(to right, #1b5e20, #4caf50, #66bb6a, #2e7d32);
     border-radius:4px; height:0; transform-origin: bottom;
-    transition: height 2s ease-out; box-shadow: 2px 0 8px rgba(0,0,0,.2); z-index:3;
+    transition: height 2s ease-out; 
+    box-shadow: 2px 0 8px rgba(0,0,0,.2); 
+    z-index:3;
   }
 
+  /* ===== HOJAS REALISTAS ===== */
   .leaf {
-    position:absolute; width:45px; height:25px;
-    background: radial-gradient(ellipse at center, #4caf50, #2e7d32);
-    border-radius: 0 100% 0 100%; opacity:0;
-    transform-origin: 0% 50%; transition: all .8s ease-out; z-index:4;
+    position:absolute; width:55px; height:32px;
+    background: radial-gradient(ellipse at 30% 30%, #a5d6a7 0%, #66bb6a 30%, #4caf50 60%, #2e7d32 100%);
+    border-radius: 0 100% 0 100%; 
+    box-shadow: 
+      inset 2px 2px 4px rgba(255,255,255,.3),
+      0 3px 6px rgba(0,0,0,.2);
+    opacity:0; transform-origin: 0% 50%; 
+    transition: all 1s ease-out; z-index:4;
+    overflow: hidden;
   }
-  .leaf.left { transform: scaleX(-1) rotate(-20deg); border-radius: 100% 0 100% 0; transform-origin: 100% 50%; }
-  .leaf.right { transform: rotate(-20deg); }
+  .leaf::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 10%;
+    width: 80%; height: 1px;
+    background: linear-gradient(to right, #1b5e20, transparent);
+    transform: translateY(-50%) rotate(-15deg);
+    opacity: 0.6;
+  }
+  .leaf.left { 
+    transform: scaleX(-1) rotate(-25deg); 
+    border-radius: 100% 0 100% 0; 
+    transform-origin: 100% 50%; 
+  }
+  .leaf.right { transform: rotate(-25deg); }
 
+  /* ===== CAPULLO REALISTA ===== */
   .bud {
-    position:absolute; bottom:12%; width:40px; height:60px;
-    background: radial-gradient(ellipse at center, #66bb6a, #2e7d32);
-    border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
-    opacity:0; transition: all .8s ease-out; z-index:5;
+    position:absolute; bottom:12%; width:44px; height:68px;
+    background: 
+      radial-gradient(ellipse at 40% 30%, #c8e6c9 0%, #a5d6a7 20%, #66bb6a 50%, #2e7d32 80%, #1b5e20 100%);
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    box-shadow: 
+      inset -4px -4px 10px rgba(0,0,0,.3),
+      inset 3px 3px 8px rgba(255,255,255,.25),
+      0 4px 10px rgba(0,0,0,.2);
+    opacity:0; transition: all 1s ease-out; z-index:5;
+    overflow: hidden;
+  }
+  .bud::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    width: 1px; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,.2), transparent);
+    transform: translateX(-50%);
   }
 
+  /* ===== FLOR GRANDE ===== */
   .flower-big {
-    position:absolute; bottom:45vh; left:50%;
-    transform: translateX(-50%) scale(0); opacity:0;
+    position:absolute; bottom:42vh; left:50%;
+    transform: translateX(-50%) scale(0);
+    opacity:0;
     transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index:6; filter: drop-shadow(0 0 30px rgba(255,193,7,.8));
+    z-index:6; 
+    filter: drop-shadow(0 0 25px rgba(255,193,7,.7));
   }
   .flower-big.bloom { transform: translateX(-50%) scale(1); opacity:1; }
-  .flower-svg { width:220px; height:220px; animation: flowerSway 3s ease-in-out infinite; }
-  @keyframes flowerSway { 0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(3deg);} }
+  .flower-svg { 
+    width:300px; height:300px; 
+    animation: flowerSway 3s ease-in-out infinite;
+    transform-origin: center 80%;
+  }
+  @keyframes flowerSway { 
+    0%,100% { transform: rotate(-2deg); } 
+    50% { transform: rotate(2deg); } 
+  }
+
+  /* Animación de pétalos apareciendo */
+  .flower-big .petal-layer {
+    transform-origin: 150px 140px;
+    opacity: 0;
+    transform: scale(0);
+  }
+  .flower-big.bloom .petal-layer {
+    animation: petalBloom 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .flower-big.bloom .petal-layer:nth-child(1) { animation-delay: 0.2s; }
+  .flower-big.bloom .petal-layer:nth-child(2) { animation-delay: 0.5s; }
+  @keyframes petalBloom {
+    0% { opacity: 0; transform: scale(0) rotate(-180deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
 
   .petal-burst {
     position:fixed; font-size:2rem; pointer-events:none; z-index:950;
@@ -252,23 +344,162 @@
   <div class="bud" id="bud"></div>
   
   <div class="flower-big" id="flowerBig">
-    <svg class="flower-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <g transform="translate(100,100)">
-        <ellipse cx="0" cy="-45" rx="18" ry="35" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1"/>
-        <ellipse cx="0" cy="-45" rx="18" ry="35" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1" transform="rotate(45)"/>
-        <ellipse cx="0" cy="-45" rx="18" ry="35" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1" transform="rotate(90)"/>
-        <ellipse cx="0" cy="-45" rx="18" ry="35" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1" transform="rotate(135)"/>
-        <ellipse cx="0" cy="-45" rx="18" ry="35" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1" transform="rotate(180)"/>
-        <ellipse cx="0" cy="-45" rx="18" ry="35" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1" transform="rotate(225)"/>
-        <ellipse cx="0" cy="-45" rx="18" ry="35" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1" transform="rotate(270)"/>
-        <ellipse cx="0" cy="-45" rx="18" ry="35" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1" transform="rotate(315)"/>
-        <circle cx="0" cy="0" r="28" fill="#8d6e00"/>
-        <circle cx="0" cy="0" r="20" fill="#5d4e00"/>
-        <circle cx="-6" cy="-6" r="3" fill="#3e2f00"/>
-        <circle cx="6" cy="-4" r="3" fill="#3e2f00"/>
-        <circle cx="-4" cy="6" r="3" fill="#3e2f00"/>
-        <circle cx="8" cy="8" r="3" fill="#3e2f00"/>
-        <circle cx="0" cy="0" r="2" fill="#3e2f00"/>
+    <svg class="flower-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Gradiente pétalos exteriores -->
+        <radialGradient id="petalOuter" cx="50%" cy="20%" r="80%">
+          <stop offset="0%" stop-color="#fff59d"/>
+          <stop offset="40%" stop-color="#ffeb3b"/>
+          <stop offset="80%" stop-color="#fbc02d"/>
+          <stop offset="100%" stop-color="#f9a825"/>
+        </radialGradient>
+        
+        <!-- Gradiente pétalos interiores -->
+        <radialGradient id="petalInner" cx="50%" cy="20%" r="80%">
+          <stop offset="0%" stop-color="#fffde7"/>
+          <stop offset="50%" stop-color="#ffee58"/>
+          <stop offset="100%" stop-color="#fbc02d"/>
+        </radialGradient>
+        
+        <!-- Gradiente del centro -->
+        <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#6d4c41"/>
+          <stop offset="50%" stop-color="#3e2723"/>
+          <stop offset="100%" stop-color="#1b0e07"/>
+        </radialGradient>
+        
+        <!-- Gradiente del tallo -->
+        <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1b5e20"/>
+          <stop offset="50%" stop-color="#4caf50"/>
+          <stop offset="100%" stop-color="#2e7d32"/>
+        </linearGradient>
+        
+        <!-- Gradiente de hojas -->
+        <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#a5d6a7"/>
+          <stop offset="50%" stop-color="#4caf50"/>
+          <stop offset="100%" stop-color="#2e7d32"/>
+        </linearGradient>
+        
+        <!-- Sombra suave -->
+        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="2.5"/>
+          <feOffset dx="0" dy="2" result="offsetblur"/>
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="0.35"/>
+          </feComponentTransfer>
+          <feMerge>
+            <feMergeNode/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      <!-- Tallo -->
+      <path d="M 150 300 Q 148 250 150 200" stroke="url(#stemGrad)" stroke-width="9" fill="none" stroke-linecap="round"/>
+      
+      <!-- Hoja izquierda -->
+      <g filter="url(#softShadow)">
+        <path d="M 150 265 Q 105 245 88 205 Q 118 218 150 245 Z" fill="url(#leafGrad)"/>
+        <path d="M 150 265 Q 128 245 95 210" stroke="#1b5e20" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M 138 250 Q 125 240 110 225" stroke="#1b5e20" stroke-width="0.6" fill="none" opacity="0.4"/>
+      </g>
+      
+      <!-- Hoja derecha -->
+      <g filter="url(#softShadow)">
+        <path d="M 150 245 Q 195 225 212 185 Q 182 198 150 225 Z" fill="url(#leafGrad)"/>
+        <path d="M 150 245 Q 172 225 205 190" stroke="#1b5e20" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M 162 230 Q 175 220 190 205" stroke="#1b5e20" stroke-width="0.6" fill="none" opacity="0.4"/>
+      </g>
+      
+      <!-- CAPA 1: Pétalos exteriores (16 pétalos, más largos y oscuros) -->
+      <g class="petal-layer" filter="url(#softShadow)">
+        <g transform="translate(150,140)">
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(0)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(22.5)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(45)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(67.5)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(90)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(112.5)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(135)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(157.5)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(180)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(202.5)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(225)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(247.5)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(270)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(292.5)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(315)"/>
+          <path d="M 0 0 C -14 -55 -22 -95 0 -120 C 22 -95 14 -55 0 0 Z" fill="url(#petalOuter)" transform="rotate(337.5)"/>
+        </g>
+      </g>
+      
+      <!-- CAPA 2: Pétalos interiores (16 pétalos, más cortos y claros) -->
+      <g class="petal-layer" filter="url(#softShadow)">
+        <g transform="translate(150,140)">
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(11.25)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(33.75)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(56.25)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(78.75)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(101.25)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(123.75)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(146.25)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(168.75)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(191.25)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(213.75)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(236.25)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(258.75)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(281.25)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(303.75)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(326.25)"/>
+          <path d="M 0 0 C -10 -40 -16 -68 0 -85 C 16 -68 10 -40 0 0 Z" fill="url(#petalInner)" transform="rotate(348.75)"/>
+        </g>
+      </g>
+      
+      <!-- Centro del girasol -->
+      <g transform="translate(150,140)" filter="url(#softShadow)">
+        <circle cx="0" cy="0" r="45" fill="url(#centerGrad)"/>
+        
+        <!-- Semillas - capa exterior -->
+        <g fill="#1b0e07" opacity="0.9">
+          <circle cx="-28" cy="-16" r="2.5"/>
+          <circle cx="-20" cy="-27" r="2.5"/>
+          <circle cx="-9" cy="-32" r="2.5"/>
+          <circle cx="5" cy="-34" r="2.5"/>
+          <circle cx="19" cy="-30" r="2.5"/>
+          <circle cx="30" cy="-19" r="2.5"/>
+          <circle cx="34" cy="-5" r="2.5"/>
+          <circle cx="32" cy="10" r="2.5"/>
+          <circle cx="24" cy="24" r="2.5"/>
+          <circle cx="11" cy="32" r="2.5"/>
+          <circle cx="-5" cy="34" r="2.5"/>
+          <circle cx="-19" cy="30" r="2.5"/>
+          <circle cx="-30" cy="19" r="2.5"/>
+          <circle cx="-34" cy="5" r="2.5"/>
+          <circle cx="-32" cy="-11" r="2.5"/>
+          
+          <!-- Capa intermedia -->
+          <circle cx="-16" cy="-9" r="2"/>
+          <circle cx="-9" cy="-16" r="2"/>
+          <circle cx="0" cy="-19" r="2"/>
+          <circle cx="9" cy="-16" r="2"/>
+          <circle cx="16" cy="-9" r="2"/>
+          <circle cx="19" cy="0" r="2"/>
+          <circle cx="16" cy="9" r="2"/>
+          <circle cx="9" cy="16" r="2"/>
+          <circle cx="0" cy="19" r="2"/>
+          <circle cx="-9" cy="16" r="2"/>
+          <circle cx="-16" cy="9" r="2"/>
+          <circle cx="-19" cy="0" r="2"/>
+          
+          <!-- Centro -->
+          <circle cx="0" cy="0" r="3.5" fill="#000"/>
+          <circle cx="-2" cy="-2" r="1.2" fill="#5d4037" opacity="0.8"/>
+        </g>
+        
+        <!-- Brillo suave -->
+        <ellipse cx="-12" cy="-14" rx="16" ry="10" fill="#ffffff" opacity="0.08"/>
       </g>
     </svg>
   </div>
@@ -376,7 +607,7 @@
       const bud = document.getElementById('bud');
       bud.style.opacity = '1';
       bud.style.bottom = 'calc(12% + 45vh)';
-      bud.style.left = 'calc(50% - 20px)';
+      bud.style.left = 'calc(50% - 22px)';
     }, 3600);
     
     setTimeout(() => {
@@ -394,7 +625,7 @@
         document.getElementById('mainContainer').classList.add('show');
         startConfetti();
       }, 1000);
-    }, 5500);
+    }, 6000);
   }
 
   function burstPetals() {
